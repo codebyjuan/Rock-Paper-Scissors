@@ -17,23 +17,22 @@ function getComputerChoice() {
 
 //Player Chooses a action 
 function getHumanChoice() {
-   let userAnswer = prompt("Enter Rock, Paper, or Scissors!: ");
+   let userAnswer = prompt("Enter Rock, Paper, or Scissors!: ").toLowerCase(); 
    
-   while (userAnswer !== "Rock" && userAnswer !== "Paper" && userAnswer !== "Scissors")
-        userAnswer = prompt("Incorrect choice, please enter Rock, Paper, or Scissors!: ")
+   while (userAnswer !== "rock" && userAnswer !== "paper" && userAnswer !== "scissors")
+        userAnswer = prompt("Incorrect choice, please enter Rock, Paper, or Scissors!: ").toLowerCase(); 
 
-   return userAnswer;
+   return userAnswer.charAt(0).toUpperCase() + userAnswer.slice(1);
 }
 
 function playRound(getHumanChoice, getComputerChoice) {
 let humanChoice = getHumanChoice();
 let computerChoice = getComputerChoice();
-lose = () => {computerScore++; alert("You lost!\n Computer Score: " + computerScore + "\nYour score: " + playerScore);}
-win = () => {playerScore++; alert("You Won!\n Computer Score: " + computerScore + "\nYour score: " + playerScore);}
-tie = () => alert("You Tied!\n Computer Score: " + computerScore + "\nYour score: " + playerScore);
+lose = () => {computerScore++; alert("Human chose " + humanChoice + "\nComputer chose " + computerChoice + "\nYou lost!\nComputer Score: " + computerScore + "\nYour score: " + playerScore);}
+win = () => {playerScore++; alert("Human chose " + humanChoice + "\nComputer chose " + computerChoice + "\nYou Won!\nComputer Score: " + computerScore + "\nYour score: " + playerScore);}
+tie = () => alert("Human chose " + humanChoice + "\nComputer chose " + computerChoice +"\nYou Tied!\nComputer Score: " + computerScore + "\nYour score: " + playerScore);
 
-alert("Human chose " + humanChoice)
-alert("Computer chose " + computerChoice)
+
 if (humanChoice == "Rock" && computerChoice == "Paper")
 {
     lose();
@@ -74,6 +73,20 @@ else if (humanChoice == "Scissors" && computerChoice == "Scissors")
 
 }
 
-playRound(getHumanChoice, getComputerChoice)
+function playGame(){
+for (let i = 0; i < 5; i++) {
+     playRound(getHumanChoice, getComputerChoice);
+}
+
+if (computerScore > playerScore)
+    alert("You lost!\nYou: " + playerScore + "\nComputer: " + computerScore);
+else if (computerScore < playerScore)
+    alert("You won!\nYou: " + playerScore + "\nComputer: " + computerScore);
+else
+    alert("You tied!\nYou: " + playerScore + "\nComputer: " + computerScore);
+
+}
+
+playGame()
 
 
