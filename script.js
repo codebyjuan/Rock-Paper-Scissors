@@ -32,7 +32,7 @@ function getComputerChoice() {
         return "Scissors";
 }
 
-//Player Chooses a action 
+//starts round
 
 function playRound(humanChoice, getComputerChoice) {
     if (roundsPlayed < totalRounds) {
