@@ -1,12 +1,22 @@
 let playerScore = 0;
 let computerScore = 0;
 
+let roundsPlayed = 0;
+let totalRounds = 5;
+
 const pHumanChoice = document.querySelector('#pHumanChoice');
 const pComputerChoice = document.querySelector('#pComputerChoice');
 const pResult = document.querySelector('#pResult');
 const pComputerScore = document.querySelector('#pComputerScore');
 const pHumanScore = document.querySelector('#pHumanScore');
 const pFinalResult = document.querySelector('#pFinalResult');
+const newGameButton = document.querySelector('#newGame');
+
+function disableButtons() {
+    rock.disabled = true;
+    paper.disabled = true;
+    scissors.disabled = true;
+}
 
 
 //Compuer chooses a action
@@ -25,6 +35,7 @@ function getComputerChoice() {
 //Player Chooses a action 
 
 function playRound(humanChoice, getComputerChoice) {
+    if (roundsPlayed < totalRounds) {
 let computerChoice = getComputerChoice();
 const lose = () => {
     computerScore++
@@ -78,7 +89,16 @@ else
 {
                 tie();
 }
+roundsPlayed++
+
+if (roundsPlayed === totalRounds) {
+    displayFinalResult();
+    disableButtons();
+    newGameButton.style.display = 'inline'; 
 }
+}
+}
+
 
 const rock = document.querySelector('#rock');
 const paper = document.querySelector('#paper');
@@ -87,21 +107,33 @@ const scissors = document.querySelector('#scissors');
 rock.addEventListener('click', () => {playRound("Rock", getComputerChoice);});
 paper.addEventListener('click', () => {playRound("Paper", getComputerChoice);});
 scissors.addEventListener('click', () => {playRound("Scissors", getComputerChoice);});
-/*function playGame(){
-for (let i = 0; i < 5; i++) {
-     playRound(getHumanChoice, getComputerChoice);
-}
 
-if (computerScore > playerScore)
-    alert("You lost!\nYou: " + playerScore + "\nComputer: " + computerScore);
-else if (computerScore < playerScore)
-    alert("You won!\nYou: " + playerScore + "\nComputer: " + computerScore);
-else
-    alert("You tied!\nYou: " + playerScore + "\nComputer: " + computerScore);
+function displayFinalResult(){
 
-}
+    if (computerScore > playerScore)
+        pFinalResult.textContent = "Game Over: You lost the game!";
+    else if (computerScore < playerScore)
+        pFinalResult.textContent = "Game Over: You Won the game!";
+    else
+        pFinalResult.textContent = "Game Over: You Tied!";
+    
+    }
 
-playGame() */
-
-
-
+    function resetGame() {
+        playerScore = 0;
+        computerScore = 0;
+        roundsPlayed = 0;
+        pHumanChoice.textContent = "";
+        pComputerChoice.textContent = "";
+        pResult.textContent = "";
+        pHumanScore.textContent = "Human Score: 0";
+        pComputerScore.textContent = "Computer Score: 0";
+        pFinalResult.textContent = "";
+        rock.disabled = false;
+        paper.disabled = false;
+        scissors.disabled = false;
+        newGameButton.style.display = 'none';
+    }
+    
+    newGameButton.addEventListener('click', resetGame);
+    
