@@ -1,6 +1,13 @@
 let playerScore = 0;
 let computerScore = 0;
 
+const pHumanChoice = document.querySelector('#pHumanChoice');
+const pComputerChoice = document.querySelector('#pComputerChoice');
+const pResult = document.querySelector('#pResult');
+const pComputerScore = document.querySelector('#pComputerScore');
+const pHumanScore = document.querySelector('#pHumanScore');
+const pFinalResult = document.querySelector('#pFinalResult');
+
 
 //Compuer chooses a action
 function getComputerChoice() {
@@ -16,22 +23,32 @@ function getComputerChoice() {
 }
 
 //Player Chooses a action 
-function getHumanChoice() {
-   let userAnswer = prompt("Enter Rock, Paper, or Scissors!: ").toLowerCase(); 
-   
-   while (userAnswer !== "rock" && userAnswer !== "paper" && userAnswer !== "scissors")
-        userAnswer = prompt("Incorrect choice, please enter Rock, Paper, or Scissors!: ").toLowerCase(); 
 
-   return userAnswer.charAt(0).toUpperCase() + userAnswer.slice(1);
-}
-
-function playRound(getHumanChoice, getComputerChoice) {
-let humanChoice = getHumanChoice();
+function playRound(humanChoice, getComputerChoice) {
 let computerChoice = getComputerChoice();
-lose = () => {computerScore++; alert("Human chose " + humanChoice + "\nComputer chose " + computerChoice + "\nYou lost!\nComputer Score: " + computerScore + "\nYour score: " + playerScore);}
-win = () => {playerScore++; alert("Human chose " + humanChoice + "\nComputer chose " + computerChoice + "\nYou Won!\nComputer Score: " + computerScore + "\nYour score: " + playerScore);}
-tie = () => alert("Human chose " + humanChoice + "\nComputer chose " + computerChoice +"\nYou Tied!\nComputer Score: " + computerScore + "\nYour score: " + playerScore);
-
+const lose = () => {
+    computerScore++
+    pResult.textContent = "You Lost!";
+    pHumanChoice.textContent = "Human chose: " + humanChoice;
+    pComputerChoice.textContent = "Computer chose: " + computerChoice;
+    pHumanScore.textContent = "Human Score: " + playerScore;
+    pComputerScore.textContent = "Computer Score: " + computerScore
+}
+const win = () => {
+    playerScore++
+    pResult.textContent = "You Won!";
+    pHumanChoice.textContent = "Human chose: " + humanChoice;
+    pComputerChoice.textContent = "Computer chose: " + computerChoice;
+    pHumanScore.textContent = "Human Score: " + playerScore;
+    pComputerScore.textContent = "Computer Score: " + computerScore;
+}
+const tie = () => {
+    pResult.textContent = "You Tied!";
+    pHumanChoice.textContent = "Human chose: " + humanChoice;
+    pComputerChoice.textContent = "Computer chose: " + computerChoice;
+    pHumanScore.textContent = "Human Score: " + playerScore;
+    pComputerScore.textContent = "Computer Score: " + computerScore;
+}
 
 if (humanChoice == "Rock" && computerChoice == "Paper")
 {
@@ -57,23 +74,20 @@ else if (humanChoice == "Scissors" && computerChoice == "Rock")
 {
             lose();
 }
-else if (humanChoice == "Rock" && computerChoice == "Rock")
+else 
 {
                 tie();
 }
-else if (humanChoice == "Paper" && computerChoice == "Paper")
-{
-                    tie();
-}
-else if (humanChoice == "Scissors" && computerChoice == "Scissors")
-    {
-                        tie();
-    }
-
-
 }
 
-function playGame(){
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+
+rock.addEventListener('click', () => {playRound("Rock", getComputerChoice);});
+paper.addEventListener('click', () => {playRound("Paper", getComputerChoice);});
+scissors.addEventListener('click', () => {playRound("Scissors", getComputerChoice);});
+/*function playGame(){
 for (let i = 0; i < 5; i++) {
      playRound(getHumanChoice, getComputerChoice);
 }
@@ -87,6 +101,7 @@ else
 
 }
 
-playGame()
+playGame() */
+
 
 
